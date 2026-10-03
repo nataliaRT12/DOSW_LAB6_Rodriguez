@@ -43,19 +43,35 @@ PostgreSQL (contenedor Docker)
 
 ## 5. Evidencias principales de funcionamiento
 
-Las capturas se encuentran en `docs/evidence/`:
+Las capturas se encuentran en `docs/evidence/`.
 
-1. PostgreSQL en Docker (`docker images` y `docker ps`).
-2. Tabla `tasks` creada en la base de datos.
-3. Pruebas del Service.
-4. Pruebas del Controller.
-5. Reporte de cobertura de JaCoCo (`05-jacoco-report.png`).
-6. API funcionando (peticiones y respuestas, incluido el 404).
-7. Aplicación React.
-8. Creación de una tarea desde React.
-9. Edición de una tarea desde React.
-10. Eliminación de una tarea desde React.
-11. Pruebas del frontend.
+### Evidencia 01 · PostgreSQL en Docker
+
+Imagen `postgres:17-alpine` descargada y contenedor `todo-postgres` en ejecución.
+
+![PostgreSQL en Docker](evidence/01-docker.png)
+
+### Evidencia 02 · Tabla `tasks`
+
+Tabla creada con el script `database/001_create_schema.sql` dentro del contenedor.
+
+![Tabla tasks](evidence/02-table-task.png)
+
+### Evidencia 03 · Pruebas del Service
+
+`TaskServiceTest`: 9 pruebas, 0 fallos.
+
+![Pruebas del Service](evidence/03-service.png)
+
+### Evidencia 04 · Pruebas del Controller
+
+`TaskControllerTest`: 9 pruebas, 0 fallos.
+
+![Pruebas del Controller](evidence/04-controller-tests2.png)
+
+### Evidencia 05 · Reporte de cobertura JaCoCo
+
+![Reporte JaCoCo](evidence/05-jacoco.png)
 
 El reporte de JaCoCo muestra:
 
@@ -64,6 +80,52 @@ El reporte de JaCoCo muestra:
 - `edu.eci.dosw.todo.exception`: 82% de cobertura de instrucciones. Los métodos `handleUnreadable` (cuerpo JSON mal formado o enum inválido) y `handleTypeMismatch` (identificador que no es numérico) no tienen una prueba específica; los manejadores de 404 y de validación (400) sí están cubiertos.
 - `edu.eci.dosw.todo`: 37%, porque la clase `TodoApiApplication` solo tiene el método `main`, que no se ejecuta en las pruebas.
 - Cobertura total del proyecto: 95% de instrucciones (17 de 404 sin cubrir) y 100% de ramas, ambas por encima de la meta del 80% sugerida por el laboratorio.
+
+### Evidencia 06 · API funcionando
+
+Peticiones a `/api/v1/tasks`: creación (201), listado y consulta por id (200), actualización (200), eliminación (204) y consulta de un id inexistente (404 con el cuerpo `{"status":404,"message":"Task with id 99 was not found"}`).
+
+![API: crear, listar y consultar](evidence/06-api-test.png)
+
+![API: actualizar, eliminar y 404](evidence/06.2-api-test.png)
+
+### Evidencia 07 · Aplicación React
+
+Interfaz cargada desde `http://localhost:5173`, sin tareas registradas.
+
+![Aplicación React](evidence/07-react-app.png)
+
+### Evidencia 08 · Creación desde React
+
+Formulario con los datos de una tarea nueva y la lista después de guardarla.
+
+![Formulario de creación](evidence/08-react-create.png)
+
+![Tarea creada en la lista](evidence/08.2-react-create.png)
+
+### Evidencia 09 · Edición desde React
+
+Tarea en estado `Pending`, formulario de edición con el estado cambiado a `In progress` y la tarea ya actualizada.
+
+![Tarea antes de editar](evidence/09-react-edit.png)
+
+![Formulario de edición](evidence/09.2-react-edit.png)
+
+![Tarea después de editar](evidence/09.3-react-edit.png)
+
+### Evidencia 10 · Eliminación desde React
+
+Lista con dos tareas y la lista después de eliminar `revisar correo`.
+
+![Antes de eliminar](evidence/10-react-delete.png)
+
+![Después de eliminar](evidence/10.2-react-delete.png)
+
+### Evidencia 11 · Pruebas del frontend
+
+Vitest: 3 archivos de prueba y 13 pruebas exitosas.
+
+![Pruebas del frontend](evidence/11-frontend-tests.png)
 
 ## 6. Resultados de las pruebas
 
