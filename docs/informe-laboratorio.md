@@ -295,4 +295,4 @@ React envía una petición HTTP con JSON al Controller, que es el único punto d
 
 ## 8. Video de demostración
 
-_Enlace por completar_
+https://youtu.be/6RhqSoNWYNY?si=v4uIYxYGjQS9lFWI
